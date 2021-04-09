@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyles.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/my.css')}}">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <!-- <script>
+        function openTab(evt, tabName) {
+            var i, x, tablinks;
+            x = document.getElementsByClassName("content-tab");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab");
+            for (i = 0; i < x.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" is-active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " is-active";
+        }
+    </script> -->
+
+</head>
+
+<body>
+    <section class="hero is-fullheight">
+
+        {% include 'navbar.html' %}
+
+        <!-- <nav class="tabs is-boxed is-fullwidth is-large has-shadow">
+            <div class="container">
+                <ul>
+                    <li class="tab is-active" onclick="openTab(event,'WebDev')"><a>Dodaj użytkownika</a></li>
+                    <li class="tab" onclick="openTab(event,'WebAud')"><a>Lista użytkowników</a></li>
+
+                </ul>
+            </div>
+        </nav> -->
+
+        <div class="container section">
+            <!-- <div id="WebDev" class="content-tab">
+
+                <div class="box main">
+                    <form method="POST">
+                        <div class="field">
+                            <label class="label">Podaj nazwe użytkownika</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="text" name="username_add" placeholder="Username">
+                                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Podaj hasło</label>
+                            <p class="control has-icons-left">
+                                <input class="input" type="text" name="password_add" placeholder="Password">
+                                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                            </p>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Powtórz hasło</label>
+                            <p class="control has-icons-left">
+                                <input class="input" type="text" name="password_add2" placeholder="Password">
+                                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                            </p>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Wybierz uprawnienia</label>
+                            <div class="select">
+                                <select name="credentials_select">
+                    <option>Użytkownik</option>
+                    <option>Operator</option>
+                    <option>Administrator</option>
+                  </select>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <p class="control">
+                                <button type="submit" class="button is-info is-fullwidth">
+                    Utwórz konto
+                  </button>
+                            </p>
+                        </div>
+                    </form>
+
+
+                </div>
+
+                {% with messages = get_flashed_messages() %} {% if messages %} {% for msg in messages %} {% if msg == "Taki użytkownik już istnieje"%}
+                <div class="notification is-danger is-light has-text-centered">{{msg}}</div>
+                {% endif %} {% if msg == "Hasła nie są jednakowe"%}
+                <div class="notification is-danger is-light has-text-centered">{{msg}}</div>
+                {% endif %} {% if msg == "Pomyślnie utworzono użytkownika"%}
+                <div class="notification is-success is-light has-text-centered">{{msg}}</div>
+                {% endif %} {% endfor %} {% endif %} {% endwith %}
+
+
+            </div> -->
+
+            <!-- <div id="WebAud" class="content-tab" style="display:none"> -->
+
+            <div class="container">
+                <table class="table is-bordered is-striped is-fullwidth">
+                    <tr class="th is-selected is-danger">
+                        <th>Nazwa użytkownika</th>
+                        <th>Hasło</th>
+                        <th>Uprawnienia</th>
+                        <th>Ostatnio zalogowany</th>
+                        <th>Ostatnio widziany</th>
+                    </tr>
+                    <tr>
+                        <td>Mike</td>
+                        <td>80</td>
+                        <td>55</td>
+                        <td>75</td>
+                        <td>210</td>
+                    </tr>
+                    <tr>
+                        <td>Haynes</td>
+                        <td>70</td>
+                        <td>65</td>
+                        <td>40</td>
+                        <td>175</td>
+                        <tr>
+                            <td>Hina</td>
+                            <td>70</td>
+                            <td>52</td>
+                            <td>63</td>
+                            <td>185</td>
+                        </tr>
+                        <tr>
+                            <td>Johny</td>
+                            <td>55</td>
+                            <td>53</td>
+                            <td>42</td>
+                            <td>150</td>
+                        </tr>
+                </table>
+            </div>
+
+            <!-- </div> -->
+
+            <a href="/menu/add_user" class="button is-info is-fullwidth is-fixed-bottom-desktop" style="margin-top: 64px;">
+                <span>Dodaj Użytkownika</span>
+
+            </a>
+
+
+
+            </button>
+        </div>
+    </section>
+</body>
+
+</html>

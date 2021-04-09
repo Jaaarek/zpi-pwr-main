@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyles.css')}}">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<body>
+    <section class="hero is-fullheight">
+
+        {% include 'navbar.html' %}
+
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <p class="title">
+                    Witaj użytkowniku <b>{{g.user}}</b>
+                </p>
+                <p class="subtitle">
+                    Twoje ID to #{{g.id}}
+                </p>
+                <span class="tag is-light is-rounded">{{g.credentials}}</p>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

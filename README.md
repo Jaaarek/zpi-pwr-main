@@ -1,0 +1,72 @@
+# Hosting i linki
+
+Program służy do zarządzania dostępem, na podstawie rozpoznawania twarzy
+
+Link do strony:
+http://zpipwr2021.atthost24.pl/login
+
+hasło i login:
+admin / admin
+
+Hosting:
+https://secure.atthost.pl/login/
+hasło i login
+zpipwr2021 / zpipwr2021
+
+1. Zainstaluj Dockera i przejdz przez tutorial, musisz takze zainstalowac linuxa za pomocą poradników:
+https://www.docker.com/
+https://docs.microsoft.com/pl-pl/windows/wsl/install-win10#step-4---download-the-linux-kernel-update-package
+
+2.Aby odpalić aplikacje, musisz wpisac do terminala ##build a nastepnie komende do odpalenia ##run dla wybranego systemu
+
+# Docker
+
+## build
+
+docker build --tag zpi-pwr .
+
+## run
+
+### MacOS
+
+docker run \
+	--rm \
+	--volume /var/run/docker.sock:/var/run/docker.sock \
+	-p 5000:5000 \
+	-p 3306:3306 \
+	zpi-pwr:latest
+
+### Windows
+
+docker run ^
+	--rm ^
+	--volume //var/run/docker.sock:/var/run/docker.sock ^
+	-p 5000:5000 ^
+	-p 3306:3306 ^
+	zpi-pwr:latest
+
+## exec
+
+### MacOS
+
+docker run \
+	--rm \
+	--interactive \
+	--tty \
+	--volume /var/run/docker.sock:/var/run/docker.sock \
+	-p 5000:5000 \
+	-p 3306:3306 \
+	--entrypoint /bin/bash \
+	zpi-pwr:latest
+
+### Windows
+
+docker run ^
+	--rm ^
+	--interactive ^
+	--tty ^
+	--volume //var/run/docker.sock:/var/run/docker.sock ^
+	-p 5000:5000 ^
+	-p 3306:3306 ^
+	--entrypoint /bin/bash ^
+	zpi-pwr:latest

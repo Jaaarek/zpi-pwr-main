@@ -1,0 +1,16 @@
+{
+    "name": "zpi-pwr-main",
+    "version": "1.0.0",
+    "description": "Program służy do zarządzania dostępem, na podstawie rozpoznawania twarzy",
+    "main": "sass/mystyles.scss",
+    "dependencies": {},
+    "devDependencies": {
+        "bulma": "^0.9.2",
+        "node-sass": "^5.0.0"
+    },
+    "scripts": {
+        "css-build": "node-sass --omit-source-map-url sass/mystyles.scss css/mystyles.css",
+        "css-watch": "npm run css-build -- --watch",
+        "start": "npm run css-watch"
+    }
+}

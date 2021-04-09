@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyles.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/my.css')}}">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<body>
+    <section class="hero is-white is-fullheight">
+        <div class="hero-body">
+            <div class="container add_margin_top">
+                <div class="columns is-centered">
+                    <span class="icon is-medium">
+                    </span>
+                    <i class="fas fa-video fa-7x"></i>
+                </div>
+
+                </span>
+                <div class="columns is-centered add_margin_top">
+                    <div class="column is-two-thirds">
+                        <h1 class="title is-1 has-text-centered">Witaj w aplikacji do zarządzania kamerami w Twoim domu</h1>
+                        <h1 class="subtitle is-5 has-text-centered opacity_80">Zaloguj się aby kontynuować </p1>
+                    </div>
+                </div>
+                <div class="columns is-centered">
+                    <div class="column is-half">
+                        <div class="box">
+                            <form method="POST">
+                                <div class="field">
+                                    <label class="label">Nazwa użytkownika</label>
+                                    <div class="control has-icons-left">
+                                        <input class="input" type="text" name="username" placeholder="Username">
+                                        <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">Hasło</label>
+                                    <p class="control has-icons-left">
+                                        <input class="input" type="password" name="password" placeholder="Password">
+                                        <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                                    </p>
+                                </div>
+                                <div class="field">
+                                    <p class="control">
+                                        <button type="submit" class="button is-info is-fullwidth main_color">
+                    Login
+                  </button>
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
