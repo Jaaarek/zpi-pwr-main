@@ -12,6 +12,6 @@ class Cameras(Resource):
 
 def init_api(app):
     global api
-
+    
     api = Api(app)
     api.add_resource(Cameras, '/cameras')
