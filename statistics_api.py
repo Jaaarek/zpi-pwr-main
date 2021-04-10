@@ -3,15 +3,15 @@ from flask_restful import reqparse, abort, Api, Resource
 
 api = None
 
-class Cameras(Resource):
+class Stats(Resource):
     def get(self):
-        return {'status': "OK"}
+        return "OK"
 
     def post(self):
-        return {'status': "OK"}
+        return "OK"
 
 def init_api(app):
     global api
 
     api = Api(app)
-    api.add_resource(Cameras, '/cameras')
+    api.add_resource(Stats, '/statistics')

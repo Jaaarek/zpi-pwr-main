@@ -1,4 +1,4 @@
-# Hosting i linki
+# Linki i opis
 
 Program służy do zarządzania dostępem, na podstawie rozpoznawania twarzy
 
@@ -17,12 +17,12 @@ zpipwr2021 / zpipwr2021
 https://www.docker.com/
 https://docs.microsoft.com/pl-pl/windows/wsl/install-win10#step-4---download-the-linux-kernel-update-package
 
-2.Aby odpalić aplikacje, musisz wpisac do terminala ##build a nastepnie komende do odpalenia ##run dla wybranego systemu
+2. Aby odpalić aplikacje, odpal terminal w lokalizacji projektu i wpisz "run.bat"
+3. Aby zakończyć działanie naciśnij CLTR+C
 
 # Docker
 
 ## build
-
 docker build --tag zpi-pwr .
 
 ## run

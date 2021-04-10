@@ -131,7 +131,6 @@ def menu_add_user():
             credential = 'admin'
         elif credential == 'Operator':
             credential = 'operator'
-        # area = request.form['area_select']
 
         if password != password2:
             flash("Hasła nie są jednakowe")
@@ -143,20 +142,25 @@ def menu_add_user():
 
     return render_template('add_user.html')
 
-@app.route('/menu/cameras')
-def cameras():
-    r = requests.post(f"{be_api}/cameras")
-    response = r.json()
+@app.route('/menu/cameras', methods=['GET', 'POST'])
+def menu_cameras():
+    r = requests.get(f"{be_api}/cameras")
+    response = r.text
     flash(f"response status: {response}")
+
     return render_template('cameras.html')
     
 
-@app.route('/menu/myprofile')
-def myprofile():
+@app.route('/menu/myprofile', methods=['GET', 'POST'])
+def menu_myprofile():
+    r = requests.get(f"{be_api}/myprofile")
+    response = r.text
     return render_template('myprofile.html')
 
-@app.route('/menu/stats')
-def stats():
+@app.route('/menu/stats', methods=['GET', 'POST'])
+def menu_stats():
+    r = requests.get(f"{be_api}/stats")
+    response = r.text
     return render_template('stats.html')
 
 if __name__ == '__main__':
