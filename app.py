@@ -15,7 +15,9 @@ from flask_mysqldb import MySQL, MySQLdb
 from flask_restful import reqparse, abort, Api, Resource
 
 import users_api
+import cameras_api
 
+#Backend_api 
 be_api = "http://localhost:5000"
 
 app = Flask(__name__)
@@ -31,8 +33,6 @@ users_api.init_api(app, mysql)
 
 app.secret_key = 'somesecretkeythatonlyishouldknow'
 
-
-#To do backendu osobno
 @app.before_request
 def before_request():
     
@@ -145,7 +145,11 @@ def menu_add_user():
 
 @app.route('/menu/cameras')
 def cameras():
+    r = requests.post(f"{be_api}/cameras")
+    response = r.json()
+    flash(f"response status: {response}")
     return render_template('cameras.html')
+    
 
 @app.route('/menu/myprofile')
 def myprofile():
