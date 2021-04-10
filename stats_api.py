@@ -14,4 +14,4 @@ def init_api(app):
     global api
 
     api = Api(app)
-    api.add_resource(Stats, '/statistics')
+    api.add_resource(Stats, '/stats')

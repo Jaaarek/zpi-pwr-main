@@ -16,6 +16,8 @@ from flask_restful import reqparse, abort, Api, Resource
 
 import users_api
 import cameras_api
+import stats_api
+import profile_api
 
 #Backend_api 
 be_api = "http://localhost:5000"
@@ -30,6 +32,9 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
 users_api.init_api(app, mysql)
+cameras_api.init_api(app)
+profile_api.init_api(app)
+stats_api.init_api(app)
 
 app.secret_key = 'somesecretkeythatonlyishouldknow'
 
@@ -150,18 +155,22 @@ def menu_cameras():
 
     return render_template('cameras.html')
     
-
 @app.route('/menu/myprofile', methods=['GET', 'POST'])
 def menu_myprofile():
     r = requests.get(f"{be_api}/myprofile")
     response = r.text
+    flash(f"response status: {response}")
+
     return render_template('myprofile.html')
 
 @app.route('/menu/stats', methods=['GET', 'POST'])
 def menu_stats():
     r = requests.get(f"{be_api}/stats")
     response = r.text
+    flash(f"response status: {response}")
+
     return render_template('stats.html')
+
 
 if __name__ == '__main__':
     app.run()
