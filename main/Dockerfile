@@ -16,4 +16,4 @@ COPY . .
 
 ENV FLASK_DEBUG=1
 
-ENTRYPOINT [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=5000"]
+ENTRYPOINT [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=11000"]

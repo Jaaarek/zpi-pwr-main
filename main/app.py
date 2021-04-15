@@ -9,7 +9,8 @@ from flask import (
     session,
     url_for,
     json,
-    flash
+    flash,
+    jsonify
 )
 from flask_mysqldb import MySQL, MySQLdb
 from flask_restful import reqparse, abort, Api, Resource
@@ -56,6 +57,11 @@ def before_request():
 @app.route('/')
 def main():
     return redirect(url_for('login'))
+
+@app.route('/test')
+def test():
+    x = requests.get("http://login:10000")
+    return x.json()
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
