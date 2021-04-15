@@ -41,46 +41,35 @@ app.secret_key = 'somesecretkeythatonlyishouldknow'
 
 @app.before_request
 def before_request():
-    
-    if 'username' in session:
-        username = session['username']
-        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cur.execute("SELECT * FROM Users WHERE username=%s",(username,))
-        user = cur.fetchone()
-        cur.close()
-        g.user = user['username']
-        g.credentials = user['credential']
-        g.id = user['id']
+    if 'credential' in session:
+        g.credential = session['credential']
+        g.id = session['id']
+        g.username = session['username']
     else:
-        g.user = None
+        g.credential = None
         
+
 @app.route('/')
 def main():
     return redirect(url_for('login'))
 
-@app.route('/test')
-def test():
-    x = requests.get("http://login:10000")
-    return x.json()
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     session.clear()
-
     if request.method == 'POST':
-        session.pop('username', None)
+        session.pop('credential', None)
 
         username = request.form['username'].lower()
         password = request.form['password']
-        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cur.execute("SELECT * FROM Users WHERE username=%s",(username,))
-        user = cur.fetchone()
-        cur.close()
 
-        if len(user) > 0:
-            if password == user['password']:
-                session['username'] = user['username']
-                return redirect(url_for('menu'))
+        respose = requests.post("http://login:11000/", json = {'username': username, "password": password})
+
+        if respose.json()['credential'] != None:
+            session['credential'] = respose.json()['credential']
+            session['id'] = respose.json()['id']
+            session['username'] = respose.json()['username']
+            return redirect(url_for('menu'))
 
         return redirect(url_for('login'))
 
@@ -88,13 +77,13 @@ def login():
 
 @app.route('/menu')
 def menu():
-    if not g.user:
+    if not g.credential:
         return redirect(url_for('login'))
     return render_template('menu.html')
 
 @app.route('/menu/users', methods=['GET', 'POST'])
 def menu_users():
-    if g.credentials == 'user':
+    if g.credential == 'user':
         return redirect(url_for('login'))
 
     if request.method == 'POST':
@@ -128,7 +117,7 @@ def menu_users():
 
 @app.route('/menu/add_user', methods=['GET', 'POST'])
 def menu_add_user():
-    if g.credentials == 'user':
+    if g.credential == 'user':
         return redirect(url_for('login'))
 
     if request.method == 'POST':
@@ -149,8 +138,7 @@ def menu_add_user():
             r = requests.post(f"{be_api}/users", data={"username": username, "password": password, "credential": credential})
             response = r.json()
             flash(f"response status: {response}")
-
-
+            
     return render_template('add_user.html')
 
 @app.route('/menu/cameras', methods=['GET', 'POST'])
