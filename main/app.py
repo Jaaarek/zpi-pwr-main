@@ -81,6 +81,7 @@ def menu():
         return redirect(url_for('login'))
     return render_template('menu.html')
 
+
 @app.route('/menu/users', methods=['GET', 'POST'])
 def menu_users():
     if g.credential == 'user':
