@@ -12,6 +12,7 @@ parser.add_argument('password')
 parser.add_argument('credential')
 
 class Users(Resource):
+    def get(self):
         return {'status': "OK"}
 
     def post(self):
