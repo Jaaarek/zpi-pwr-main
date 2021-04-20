@@ -15,11 +15,6 @@ from flask import (
 from flask_mysqldb import MySQL, MySQLdb
 from flask_restful import reqparse, abort, Api, Resource
 
-import users_api
-import cameras_api
-import stats_api
-import profile_api
-
 app = Flask(__name__)
 
 app.config['MYSQL_USER'] = '19294_zpi'
@@ -28,11 +23,6 @@ app.config['MYSQL_DB'] = '19294_zpi'
 app.config['MYSQL_HOST'] = 'zpipwr2021.atthost24.pl'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
-
-users_api.init_api(app, mysql)
-cameras_api.init_api(app)
-profile_api.init_api(app)
-stats_api.init_api(app)
 
 app.secret_key = 'somesecretkeythatonlyishouldknow'
 
@@ -45,11 +35,9 @@ def before_request():
     else:
         g.credential = None
         
-
 @app.route('/')
 def main():
     return redirect(url_for('login'))
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -77,7 +65,6 @@ def menu():
     if not g.credential:
         return redirect(url_for('login'))
     return render_template('menu.html')
-
 
 @app.route('/menu/users', methods=['GET', 'POST'])
 def menu_users():
