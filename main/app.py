@@ -136,10 +136,8 @@ def menu_add_user():
         if password != password2:
             flash("Hasła nie są jednakowe")
         else:
-            r = requests.post(f"{be_api}/users", data={"username": username, "password": password, "credential": credential})
-            response = r.json()
-            flash(f"response status: {response}")
-            
+            response = requests.post("http://new_user:12000/", json = {"username": username, "password": password, "credential": credential})
+            flash(response.json())
     return render_template('add_user.html')
 
 @app.route('/menu/cameras', methods=['GET', 'POST'])
