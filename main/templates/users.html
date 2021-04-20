@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyles.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/my.css')}}">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<body>
+    <section class="hero is-fullheight">
+
+        {% include 'navbar.html' %}
+
+        <div class="container section">
+            
+
+            <div class="container">
+                <table class="table is-bordered is-striped is-fullwidth">
+                    <tr class="th is-selected is-danger">
+                        <th>Nazwa użytkownika</th>
+                        <th>Hasło</th>
+                        <th>Uprawnienia</th>
+                        <th>Ostatnio zalogowany</th>
+                        <th>Ostatnio widziany</th>
+                    </tr>
+                    <tr>
+                        <td>Mike</td>
+                        <td>80</td>
+                        <td>55</td>
+                        <td>75</td>
+                        <td>210</td>
+                    </tr>
+                    <tr>
+                        <td>Haynes</td>
+                        <td>70</td>
+                        <td>65</td>
+                        <td>40</td>
+                        <td>175</td>
+                        <tr>
+                            <td>Hina</td>
+                            <td>70</td>
+                            <td>52</td>
+                            <td>63</td>
+                            <td>185</td>
+                        </tr>
+                        <tr>
+                            <td>Johny</td>
+                            <td>55</td>
+                            <td>53</td>
+                            <td>42</td>
+                            <td>150</td>
+                        </tr>
+                </table>
+            </div>
+
+            <!-- </div> -->
+
+            <a href="/menu/add_user" class="button is-info is-fullwidth is-fixed-bottom-desktop" style="margin-top: 64px;">
+                <span>Dodaj Użytkownika</span>
+
+            </a>
+
+
+
+            </button>
+        </div>
+    </section>
+</body>
+
+</html>
