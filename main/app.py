@@ -20,9 +20,6 @@ import cameras_api
 import stats_api
 import profile_api
 
-#Backend_api 
-be_api = "http://localhost:5000"
-
 app = Flask(__name__)
 
 app.config['MYSQL_USER'] = '19294_zpi'
@@ -139,31 +136,6 @@ def menu_add_user():
             response = requests.post("http://new_user:12000/", json = {"username": username, "password": password, "credential": credential})
             flash(response.json())
     return render_template('add_user.html')
-
-@app.route('/menu/cameras', methods=['GET', 'POST'])
-def menu_cameras():
-    r = requests.get(f"{be_api}/cameras")
-    response = r.text
-    flash(f"response status: {response}")
-
-    return render_template('cameras.html')
-    
-@app.route('/menu/myprofile', methods=['GET', 'POST'])
-def menu_myprofile():
-    r = requests.get(f"{be_api}/myprofile")
-    response = r.text
-    flash(f"response status: {response}")
-
-    return render_template('myprofile.html')
-
-@app.route('/menu/stats', methods=['GET', 'POST'])
-def menu_stats():
-    r = requests.get(f"{be_api}/stats")
-    response = r.text
-    flash(f"response status: {response}")
-
-    return render_template('stats.html')
-
 
 if __name__ == '__main__':
     app.run()
