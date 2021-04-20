@@ -5,7 +5,6 @@ from flask_restful import reqparse, abort, Api, Resource
 
 api = None
 mysql = None
-
 parser = reqparse.RequestParser()
 parser.add_argument('username')
 parser.add_argument('password')
