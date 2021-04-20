@@ -22,6 +22,15 @@ https://docs.microsoft.com/pl-pl/windows/wsl/install-win10#step-4---download-the
 
 # Docker
 
+
+Docker-compose.yml jest to plik w którym znajdują się wszystkie usługi które się odpalają za jednym razem.
+Konwencja tworzenia jest bardzo prosta, najlepiej tworzyc nazwy, tak jak nazywaja sie foldery.
+Porty ustalamy w docker-compose i dockerfile aplikacji.
+
+uruchamiamy appke run.bat
+
+
+
 ## build
 docker build --tag zpi-pwr .
 
