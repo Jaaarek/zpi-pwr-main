@@ -1,2 +1,6 @@
 @charset "utf-8";
-@import "../node_modules/bulma/bulma.sass";
+@import "../sass/utilities/initial-variables";
+@import "../sass/utilities/functions";
+$table-head-cell-color: #2F80ED;
+@import "../sass/utilities/derived-variables";
+@import "../bulma";

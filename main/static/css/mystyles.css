@@ -528,7 +528,7 @@ table th:not([align]) {
 }
 
 table th {
-    color: #363636;
+    color: #2F80ED;
 }
 
 @keyframes spinAround {
@@ -3013,7 +3013,7 @@ div.icon-text {
 
 .table td.is-primary,
 .table th.is-primary {
-    background-color: #00d1b2;
+    background-color: #2F80ED;
     border-color: #00d1b2;
     color: #fff;
 }
@@ -3078,6 +3078,7 @@ div.icon-text {
 }
 
 .table th {
+    background-color: 2F80ED;
     color: #363636;
 }
 
