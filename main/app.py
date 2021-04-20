@@ -15,6 +15,10 @@ from flask import (
 from flask_mysqldb import MySQL, MySQLdb
 from flask_restful import reqparse, abort, Api, Resource
 
+<<<<<<< HEAD
+
+app = Flask(__name__)
+=======
 app = Flask(__name__)
 
 app.config['MYSQL_USER'] = '19294_zpi'
@@ -24,6 +28,7 @@ app.config['MYSQL_HOST'] = 'zpipwr2021.atthost24.pl'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
+>>>>>>> f68168cc0dee44eeb9bf1b8ea5c23c537217e322
 app.secret_key = 'somesecretkeythatonlyishouldknow'
 
 @app.before_request
@@ -56,7 +61,8 @@ def login():
             session['username'] = respose.json()['username']
             return redirect(url_for('menu'))
 
-        return redirect(url_for('login'))
+        flash("Błedny login lub hasło")
+        #return redirect(url_for('login'))
 
     return render_template('login.html')
 
@@ -66,41 +72,19 @@ def menu():
         return redirect(url_for('login'))
     return render_template('menu.html')
 
+<<<<<<< HEAD
+
+@app.route('/users', methods=['GET', 'POST'])
+=======
 @app.route('/menu/users', methods=['GET', 'POST'])
+>>>>>>> f68168cc0dee44eeb9bf1b8ea5c23c537217e322
 def menu_users():
     if g.credential == 'user':
         return redirect(url_for('login'))
 
-    if request.method == 'POST':
-        username = request.form['username_add'].lower()
-        password = request.form['password_add']
-        password2 = request.form['password_add2']
-        credential = request.form['credentials_select']
-        if credential == 'Użytkownik':
-            credential = 'user'
-        elif credential == 'Administrator':
-            credential = 'admin'
-        elif credential == 'Operator':
-            credential = 'operator'
-
-        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cur.execute("SELECT * FROM Users WHERE username=%s",(username.lower(),))
-        user = cur.fetchone()
-        cur.close()
-
-        if user == None:
-            if password != password2:
-                flash("Hasła nie są jednakowe")
-            else:
-                cur = mysql.connection.cursor()
-                cur.execute('INSERT INTO Users (username, password, credential) VALUES (%s, %s, %s)',(username, password, credential))    
-                mysql.connection.commit()
-                flash("Pomyślnie utworzono użytkownika")
-        else:
-            flash(f"Taki użytkownik już istnieje", "info")
     return render_template('users.html')
 
-@app.route('/menu/add_user', methods=['GET', 'POST'])
+@app.route('/add_user', methods=['GET', 'POST'])
 def menu_add_user():
     if g.credential == 'user':
         return redirect(url_for('login'))
@@ -121,8 +105,23 @@ def menu_add_user():
             flash("Hasła nie są jednakowe")
         else:
             response = requests.post("http://new_user:12000/", json = {"username": username, "password": password, "credential": credential})
-            flash(response.json())
+            if response.json()['status'] == "exist":
+                flash("Taki użytkownik już istnieje")
+            if response.json()['status'] == "created":
+                flash("Pomyślnie utworzono użytkownika")
     return render_template('add_user.html')
+
+@app.route('/cameras')
+def cameras():
+    return render_template('cameras.html')
+
+@app.route('/stats')
+def stats():
+    return render_template('stats.html')
+
+@app.route('/myprofile')
+def myprofile():
+    return render_template('myprofile.html')
 
 if __name__ == '__main__':
     app.run()
