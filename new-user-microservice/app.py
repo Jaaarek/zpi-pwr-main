@@ -12,7 +12,6 @@ app.config['MYSQL_HOST'] = 'zpipwr2021.atthost24.pl'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
-
 @app.route('/', methods=['POST'])
 def new_user():
     username = request.json['username']
