@@ -58,6 +58,14 @@
                                 </div>
                             </form>
                         </div>
+
+            {% with messages = get_flashed_messages() %} {% if messages %} {% for msg in messages %} {% if msg == "Błedny login lub hasło"%}
+            <div class="notification is-danger is-light has-text-centered">{{msg}}</div>
+            {% endif %}
+            {% endfor %} {% endif %} {% endwith %}
+            
+
+
                     </div>
 
                 </div>
