@@ -24,38 +24,29 @@
                         <th class="is-info table-header">ID</th>
                         <th class="is-info table-header">Login</th>
                         <th class="is-info table-header">Hasło</th>
-                        <th class="is-info table-header">Dostępne obszary</th>
-                        <th class="is-info table-header"></th>
-                        <th class="is-info table-header"></th>
+                        <th class="is-info table-header">Uprawnienia</th>
+                        <!-- <th class="is-info table-header"></th>
+                        <th class="is-info table-header"></th> -->
                     </tr>
+
+                    {% for row in data %}
                     <tr>
-                        <td>Mike</td>
-                        <td>80</td>
-                        <td>55</td>
-                        <td>75</td>
+                    {% for cell in row %}
+                    <td> {{cell}}</td>
+                    {% endfor %}
+                    <td>
+                        <span class="navbar-item">
+                            <a class="button is-danger is-small is-light is-rounded">
+                              <span class="icon">
+                                <i class="fas fa-user-times fa-sm"></i>
+                              </span>
+                              <a></a>
+
+                    </td>
 
                     </tr>
-                    <tr>
-                        <td>Haynes</td>
-                        <td>70</td>
-                        <td>65</td>
-                        <td>40</td>
-
-                    </tr>
-                    <tr>
-                        <td>Hina</td>
-                        <td>70</td>
-                        <td>52</td>
-                        <td>63</td>
-
-                    </tr>
-                    <tr>
-                        <td>Johny</td>
-                        <td>55</td>
-                        <td>53</td>
-                        <td>42</td>
-
-                    </tr>
+                    {% endfor %}
+                    
                 </table>
             </div>
 

@@ -65,7 +65,15 @@ def menu_users():
     if g.credential == 'user':
         return redirect(url_for('login'))
 
-    return render_template('users.html')
+    response = requests.get("http://user_table:13000/")
+    list = []
+    list_id = []
+    response = response.json()
+
+    for elem in response:
+        list.append([response[str(elem)]['id'], response[str(elem)]['username'], response[str(elem)]['password'], response[str(elem)]['credential']])
+        list_id.append([response[str(elem)]['id'])
+    return render_template('users.html', data = list, data2 = list_id)
 
 @app.route('/add_user', methods=['GET', 'POST'])
 def menu_add_user():

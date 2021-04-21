@@ -15,7 +15,13 @@ services:
             - 11000:11000
     new_user:
         build:
-            .\new-user-microservice
+            .\user\new-user-microservice
         restart: always
         ports:
             - 12000:12000
+    user_table:
+        build:
+            .\user\user-table-microservice
+        restart: always
+        ports:
+            - 13000:13000
