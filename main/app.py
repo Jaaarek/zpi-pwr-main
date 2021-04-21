@@ -65,14 +65,14 @@ def menu_users():
     if g.credential == 'user':
         return redirect(url_for('login'))
 
-    response = requests.get("http://user_table:13000/")
+    response = requests.get("http://user:12000/user_table")
     list = []
     list_id = []
     response = response.json()
 
     for elem in response:
         list.append([response[str(elem)]['id'], response[str(elem)]['username'], response[str(elem)]['password'], response[str(elem)]['credential']])
-        list_id.append([response[str(elem)]['id'])
+        #list_id.append([response[str(elem)]['id']])
     return render_template('users.html', data = list, data2 = list_id)
 
 @app.route('/add_user', methods=['GET', 'POST'])
@@ -95,7 +95,7 @@ def menu_add_user():
         if password != password2:
             flash("Hasła nie są jednakowe")
         else:
-            response = requests.post("http://new_user:12000/", json = {"username": username, "password": password, "credential": credential})
+            response = requests.post("http://user:12000/new_user", json = {"username": username, "password": password, "credential": credential})
             if response.json()['status'] == "exist":
                 flash("Taki użytkownik już istnieje")
             if response.json()['status'] == "created":
