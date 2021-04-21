@@ -16,50 +16,43 @@
         {% include 'navbar.html' %}
 
         <div class="container section">
-            
+
 
             <div class="container">
-                <table class="table is-bordered is-striped is-fullwidth">
-                    <tr class="th is-selected is-danger">
-                        <th>Nazwa użytkownika</th>
-                        <th>Hasło</th>
-                        <th>Uprawnienia</th>
-                        <th>Ostatnio zalogowany</th>
-                        <th>Ostatnio widziany</th>
-                    </tr>
+                <table class="table is-bordered is-fullwidth">
                     <tr>
-                        <td>Mike</td>
-                        <td>80</td>
-                        <td>55</td>
-                        <td>75</td>
-                        <td>210</td>
+                        <th class="is-info table-header">ID</th>
+                        <th class="is-info table-header">Login</th>
+                        <th class="is-info table-header">Hasło</th>
+                        <th class="is-info table-header">Uprawnienia</th>
+                        <!-- <th class="is-info table-header"></th>
+                        <th class="is-info table-header"></th> -->
                     </tr>
+
+                    {% for row in data %}
                     <tr>
-                        <td>Haynes</td>
-                        <td>70</td>
-                        <td>65</td>
-                        <td>40</td>
-                        <td>175</td>
-                        <tr>
-                            <td>Hina</td>
-                            <td>70</td>
-                            <td>52</td>
-                            <td>63</td>
-                            <td>185</td>
-                        </tr>
-                        <tr>
-                            <td>Johny</td>
-                            <td>55</td>
-                            <td>53</td>
-                            <td>42</td>
-                            <td>150</td>
-                        </tr>
+                    {% for cell in row %}
+                    <td> {{cell}}</td>
+                    {% endfor %}
+                    <td>
+                        <span class="navbar-item">
+                            <a class="button is-danger is-small is-light is-rounded">
+                              <span class="icon">
+                                <i class="fas fa-user-times fa-sm"></i>
+                              </span>
+                              <a></a>
+
+                    </td>
+
+                    </tr>
+                    {% endfor %}
+                    
                 </table>
             </div>
 
             <!-- </div> -->
 
-            <a href="/menu/add_user" class="button is-info is-fullwidth is-fixed-bottom-desktop" style="margin-top: 64px;">
+            <a href="/add_user " class="button is-info is-fullwidth is-fixed-bottom-desktop " style="margin-top: 64px; ">
                 <span>Dodaj Użytkownika</span>
 
             </a>

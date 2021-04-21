@@ -17,3 +17,9 @@
 .add_margin_bottom_small {
     margin-bottom: 16px;
 }
+
+.table-header {
+    color: white;
+    background-color: #2F80ED;
+    border-color: #DBDBDB;
+}
