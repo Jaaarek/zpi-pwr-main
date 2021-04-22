@@ -65,6 +65,11 @@ def menu_users():
     if g.credential == 'user':
         return redirect(url_for('login'))
 
+        
+    if request.method == 'POST':
+        id = request.form['id']
+        response_id = requests.post("http://user:12000/user_delete", json = {'id': id})
+
     response = requests.get("http://user:12000/user_table")
     list = []
     list_id = []

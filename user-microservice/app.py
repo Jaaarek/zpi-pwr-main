@@ -50,5 +50,15 @@ def user_stats():
     res=cur.fetchall()    
     return jsonify({'number_of_users': res[0]['COUNT(username)']})
 
+
+@app.route('/user_delete', methods=['POST'])
+def user_delete():
+    id = request.json['id']
+    print(id, flush=True)
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("DELETE FROM Users WHERE id=%s"%id)
+    mysql.connection.commit() 
+    return jsonify({'status': 'deleted'})
+
 if __name__ == '__main__':
     app.run()
