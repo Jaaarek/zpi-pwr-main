@@ -32,7 +32,7 @@ def new_user():
         return jsonify({"status": "exist"})
 
 @app.route('/user_table', methods = ['GET'])
-def main():
+def user_table():
     x = {}
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cur.execute("SELECT * FROM Users")
@@ -41,8 +41,14 @@ def main():
     for row in res:
         x[i] = row
         i+=1
-
     return jsonify(x)
+
+@app.route('/user_stats', methods = ['GET'])
+def user_stats():
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT COUNT(username) FROM Users")
+    res=cur.fetchall()    
+    return jsonify({'number_of_users': res[0]['COUNT(username)']})
 
 if __name__ == '__main__':
     app.run()
