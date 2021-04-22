@@ -12,4 +12,120 @@
 
 <body>
     {% include 'navbar.html' %}
+
+    <div class="columns is-centered" style="margin-top: 15px;">
+        <div class="column is-half">
+            <div class="box">
+                <section class="hero is-small">
+                    <div class="hero-body has-text-centered">
+                        <p class="title is-1">
+                            69
+                        </p>
+                        <p class="subtitle">
+                            <span class="icon-text">
+                                <span class="icon">
+                                  <i class="fas fa-sign-in-alt"></i>
+                                </span>
+                                <span>Liczba wszystkich zalogowań</span>
+                              </span>
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="columns is-centered" style="margin-top: 15px;">
+        <div class="column is-half">
+            <div class="box">
+                <form method="POST">
+                    <div class="field">
+                        <label class="label">ID</label>
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" placeholder="id" disabled>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Uprawnienia</label>
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" placeholder="uprawnienia" disabled>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user-tag"></i>
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="columns">
+
+                        <div class="column">
+                            <label class="label">Nazwa użytkownika</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="text" placeholder="New username" disabled>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                            </div>   
+                        </div>
+                        <div class="column">
+                            <label class="label">Nowa nazwa użytkownika</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="text" name="new_username" placeholder="New username">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                            </div>   
+                        </div>
+                    </div>
+
+                    
+                    <div class="columns">
+
+                        <div class="column">
+                            <label class="label">Hasło</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="text" placeholder="hasło" disabled>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </div>   
+                        </div>
+                        <div class="column">
+                            <label class="label">Nowe hasło</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="text" name="new_password" placeholder="New password">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </div>   
+                        </div>
+                        <div class="column">
+                            <label class="label">Powtórz nowe hasło</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="text" name="new_password_2" placeholder="New password">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </div>   
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <p class="control">
+                            <button type="submit" class="button is-info is-fullwidth main_color is-light">
+                                Ztwierdż zmiany
+                            </button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
 </body>
