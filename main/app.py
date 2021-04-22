@@ -68,7 +68,9 @@ def menu_users():
         
     if request.method == 'POST':
         id = request.form['id']
-        response_id = requests.post("http://user:12000/user_delete", json = {'id': id})
+        if id != str(g.id):
+            print(type(id), type(g.id), flush=True)
+            response_id = requests.post("http://user:12000/user_delete", json = {'id': id})
 
     response = requests.get("http://user:12000/user_table")
     list = []
