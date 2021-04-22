@@ -66,7 +66,6 @@ def menu_users():
     if request.method == 'POST':
         id = request.form['id']
         if id != str(g.id):
-            print(type(id), type(g.id), flush=True)
             response_id = requests.post("http://user:12000/user_delete", json = {'id': id})
     response = requests.get("http://user:12000/user_table")
     list = []
@@ -121,13 +120,33 @@ def stats():
     return render_template('stats.html')
 
 
-@app.route('/myprofile')
+@app.route('/myprofile', methods=['GET', 'POST'])
 def myprofile():
     if g.credential == 'user':
         return redirect(url_for('login'))
 
-        users = requests.get("http://stats:13000/user_stats")
-        g.number_of_users = users.json()['number_of_users']
+    if request.method == 'POST':
+        new_username = request.form['new_username']
+        new_password = request.form['new_password']
+        new_password2 = request.form['new_password_2']
+        if new_username != '':
+            response = requests.post("http://user:12000/user_change_name", json = {'new_username': new_username, 'id': g.id})
+            print(response.json(), flush=True)
+            if response.json()['status'] == 'changed':
+                session['username'] = new_username
+                return redirect(url_for('myprofile'))
+            elif response.json()['status'] == 'exists':
+                flash('Taki użytkownik już istnieje')
+
+        if new_password != '':
+            if new_password == new_password2:
+                response = requests.post("http://user:12000/user_change_password", json = {'new_password': new_password, 'id': g.id})
+                if response.json()['status'] == 'changed':
+                    session['username'] = new_username
+                    return redirect(url_for('myprofile'))
+            else:
+                flash('Hasła nie są jednakowe')
+
     return render_template('myprofile.html')
 
 if __name__ == '__main__':
