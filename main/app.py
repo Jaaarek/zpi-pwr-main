@@ -116,13 +116,18 @@ def stats():
     if g.credential == 'user':
         return redirect(url_for('login'))
 
-    users = requests.get("http://user:12000/user_stats")
+    users = requests.get("http://stats:13000/user_stats")
     g.number_of_users = users.json()['number_of_users']
     return render_template('stats.html')
 
 
 @app.route('/myprofile')
 def myprofile():
+    if g.credential == 'user':
+        return redirect(url_for('login'))
+
+        users = requests.get("http://stats:13000/user_stats")
+        g.number_of_users = users.json()['number_of_users']
     return render_template('myprofile.html')
 
 if __name__ == '__main__':
