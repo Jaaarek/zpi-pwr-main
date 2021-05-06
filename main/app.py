@@ -14,6 +14,7 @@ from flask import (
 )
 from flask_mysqldb import MySQL, MySQLdb
 from flask_restful import reqparse, abort, Api, Resource
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'somesecretkeythatonlyishouldknow'
@@ -46,6 +47,8 @@ def login():
             session['credential'] = respose.json()['credential']
             session['id'] = respose.json()['id']
             session['username'] = respose.json()['username']
+            respose = requests.post("http://stats:13000/user_logs", json = {'user_id': respose.json()['id'], "date": str(datetime.now()), "ip": request.remote_addr})
+            print(str(datetime.now()), request.remote_addr, flush=True)
             return redirect(url_for('menu'))
         flash("Błedny login lub hasło")
     return render_template('login.html')
@@ -116,6 +119,8 @@ def stats():
         return redirect(url_for('login'))
 
     users = requests.get("http://stats:13000/user_stats")
+    logs = requests.get("http://stats:13000/user_logs")
+    g.number_of_logs = logs.json()['number_of_logs']
     g.number_of_users = users.json()['number_of_users']
     return render_template('stats.html')
 
