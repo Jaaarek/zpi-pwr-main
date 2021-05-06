@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request
 import requests
-
 from flask_mysqldb import MySQL, MySQLdb
 
 app = Flask(__name__)
@@ -9,8 +8,8 @@ app.config['MYSQL_USER'] = '19294'
 app.config['MYSQL_PASSWORD'] = 'zpipwr2021'
 app.config['MYSQL_HOST'] = 'zpipwr2021.atthost24.pl'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-mysql = MySQL(app)
 
+mysql = MySQL(app)
 
 @app.route('/user_stats', methods = ['GET'])
 def user_stats():
@@ -31,7 +30,8 @@ def user_logs():
         cur = mysql.connection.cursor()
         cur.execute('INSERT INTO login_logs (user_id, date, ip) VALUES (%s, %s, %s)',(user_id, date, ip))  
         mysql.connection.commit()
-
+        return jsonify({'status': 'logs_added'})
+        
     if request.method == 'GET':
         app.config['MYSQL_DB'] = '19294_Statistics'
         cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
