@@ -115,9 +115,6 @@ def cameras():
 
 @app.route('/stats')
 def stats():
-    if g.credential == 'user':
-        return redirect(url_for('login'))
-
     users = requests.get("http://stats:13000/user_stats")
     logs = requests.get("http://stats:13000/user_logs")
     g.number_of_logs = logs.json()['number_of_logs']
@@ -127,9 +124,6 @@ def stats():
 
 @app.route('/myprofile', methods=['GET', 'POST'])
 def myprofile():
-    if g.credential == 'user':
-        return redirect(url_for('login'))
-
     response = requests.post("http://stats:13000/logs_count", json = {"user_id": g.id})
     g.personal_number_of_logs = response.json()['number_of_logs']
 
