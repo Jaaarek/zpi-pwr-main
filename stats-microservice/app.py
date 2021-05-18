@@ -19,28 +19,48 @@ def user_stats():
     res=cur.fetchall()    
     return jsonify({'number_of_users': res[0]['COUNT(username)']})
 
-@app.route('/user_logs', methods = ['POST', 'GET'])
-def user_logs():
-    if request.method == 'POST':
-        app.config['MYSQL_DB'] = '19294_Statistics'
-        user_id = request.json['user_id']
-        date = request.json['date']
-        ip = request.json['ip']
-        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cur = mysql.connection.cursor()
-        cur.execute('INSERT INTO login_logs (user_id, date, ip) VALUES (%s, %s, %s)',(user_id, date, ip))  
-        mysql.connection.commit()
-        return jsonify({'status': 'logs_added'})
-        
-    if request.method == 'GET':
-        app.config['MYSQL_DB'] = '19294_Statistics'
-        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cur.execute("SELECT COUNT(user_id) FROM login_logs")
-        res=cur.fetchall()    
-        return jsonify({'number_of_logs': res[0]['COUNT(user_id)']})
+@app.route('/user_logs_add', methods = ['POST'])
+def user_logs_add():
+    app.config['MYSQL_DB'] = '19294_Logs'
+    user_id = request.json['user_id']
+    date = request.json['date']
+    ip = request.json['ip']
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur = mysql.connection.cursor()
+    cur.execute('INSERT INTO login_logs (user_id, date, ip) VALUES (%s, %s, %s)',(user_id, date, ip))  
+    mysql.connection.commit()
+    return jsonify({'status': 'logs_added'})
 
 
-    
+@app.route('/user_logs', methods = ['GET'])
+def user_logs():        
+    logs_count = requests.post('http://localhost:13000/logs_count', json = {'user_id': '*'})
+    app.config['MYSQL_DB'] = '19294_Statistics'
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    num_of_logs = logs_count.json()['number_of_logs']
+    num_of_logs = str(num_of_logs)
+
+    cur.execute('UPDATE General SET logs_num = %s'%(num_of_logs))
+    mysql.connection.commit()
+
+    cur.execute("SELECT logs_num FROM General")
+    res=cur.fetchall()
+    return jsonify({'number_of_logs': res[0]['logs_num']})
+
+
+@app.route('/logs_count', methods = ['POST'])
+def logs_count():
+    user_id = request.json['user_id']
+    print(user_id, flush = True)
+    app.config['MYSQL_DB'] = '19294_Logs'
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    if user_id == "*":
+        cur.execute('SELECT COUNT(user_id) FROM login_logs')
+    else:
+        cur.execute('SELECT COUNT(user_id) FROM login_logs WHERE user_id = %s'%(user_id))
+    res=cur.fetchall()
+    return jsonify({'number_of_logs':res[0]['COUNT(user_id)']})
+
 
 if __name__ == '__main__':
     app.run()

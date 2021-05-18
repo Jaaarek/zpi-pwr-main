@@ -47,7 +47,7 @@ def login():
             session['credential'] = respose.json()['credential']
             session['id'] = respose.json()['id']
             session['username'] = respose.json()['username']
-            respose = requests.post("http://stats:13000/user_logs", json = {'user_id': respose.json()['id'], "date": str(datetime.now()), "ip": request.remote_addr})
+            respose = requests.post("http://stats:13000/user_logs_add", json = {'user_id': respose.json()['id'], "date": str(datetime.now()), "ip": request.remote_addr})
             print(str(datetime.now()), request.remote_addr, flush=True)
             return redirect(url_for('menu'))
         flash("Błedny login lub hasło")
@@ -130,13 +130,15 @@ def myprofile():
     if g.credential == 'user':
         return redirect(url_for('login'))
 
+    response = requests.post("http://stats:13000/logs_count", json = {"user_id": g.id})
+    g.personal_number_of_logs = response.json()['number_of_logs']
+
     if request.method == 'POST':
         new_username = request.form['new_username']
         new_password = request.form['new_password']
         new_password2 = request.form['new_password_2']
         if new_username != '':
             response = requests.post("http://user:12000/user_change_name", json = {'new_username': new_username, 'id': g.id})
-            print(response.json(), flush=True)
             if response.json()['status'] == 'changed':
                 session['username'] = new_username
                 return redirect(url_for('myprofile'))
@@ -151,6 +153,7 @@ def myprofile():
                     return redirect(url_for('myprofile'))
             else:
                 flash('Hasła nie są jednakowe')
+    
 
     return render_template('myprofile.html')
 
