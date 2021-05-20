@@ -1,4 +1,4 @@
-FROM python:3.8-buster
+FROM python:3.6-buster
 
 WORKDIR /app
 
@@ -7,6 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
     apt-get -y install gcc mono-mcs libmariadb-dev-compat libmariadb-dev && \
     rm -rf /var/lib/apt/lists/*
+
 
 COPY requirements.txt requirements.txt
 

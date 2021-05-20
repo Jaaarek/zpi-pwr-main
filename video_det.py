@@ -4,7 +4,7 @@ import face_recognition
 import os
 import time
 
-KNOWN_FACES_DIR = "ImagesAttendance"
+KNOWN_FACES_DIR = "cameras_microservice/ImagesAttendance"
 TOLARANCE = 0.5
 FRAME_THICKNESS = 3
 FONT_THICKNESS = 2

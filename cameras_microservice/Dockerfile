@@ -7,6 +7,9 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
     apt-get -y install gcc mono-mcs libmariadb-dev-compat libmariadb-dev && \
     rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get -y install cmake protobuf-compiler
+
+RUN pip3 install face-recognition
 
 COPY requirements.txt requirements.txt
 

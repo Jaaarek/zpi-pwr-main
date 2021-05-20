@@ -19,3 +19,9 @@ services:
         restart: always
         ports:
             - 12000:12000
+    cameras:
+        build:
+            .\cameras_microservice
+        restart: always
+        ports:
+            - 16000:16000
