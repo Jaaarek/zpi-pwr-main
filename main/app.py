@@ -101,10 +101,11 @@ def menu_add_user():
             if response.json()['status'] == "created":
                 flash("Pomyślnie utworzono użytkownika")
     return render_template('add_user.html')
-
+'''
 @app.route('/cameras')
 def cameras():
     return render_template('cameras.html')
+    '''
 
 @app.route('/stats')
 def stats():
