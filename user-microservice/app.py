@@ -31,12 +31,12 @@ def new_user():
     password = request.json['password']
     credential = request.json['credential'] 
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cur.execute("SELECT * FROM Users WHERE username=%s"%(username.lower(),))
+    cur.execute("SELECT * FROM Users WHERE username=%s",(username.lower(),))
     user = cur.fetchone()
     cur.close()
     if user == None:
         cur = mysql.connection.cursor()
-        cur.execute('INSERT INTO Users (username, password, credential) VALUES (%s, %s, %s)'%(username, password, credential))    
+        cur.execute('INSERT INTO Users (username, password, credential) VALUES (%s, %s, %s)',(username, password, credential))    
         mysql.connection.commit() 
         return jsonify({"status": "created"}) 
     else:

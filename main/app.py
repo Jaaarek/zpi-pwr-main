@@ -13,7 +13,6 @@ from flask import (
     jsonify
 )
 from flask_mysqldb import MySQL, MySQLdb
-from flask_restful import reqparse, abort, Api, Resource
 from datetime import datetime
 
 app = Flask(__name__)

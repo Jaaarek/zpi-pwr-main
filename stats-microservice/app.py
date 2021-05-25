@@ -62,5 +62,24 @@ def logs_count():
     return jsonify({'number_of_logs':res[0]['COUNT(user_id)']})
 
 
+@app.route('video_feed', methods = ['POST'])
+def logs_count():
+    name = request.json['name']
+    print(name, flush=True)
+    
+    # print(user_id, flush = True)
+    # app.config['MYSQL_DB'] = '19294_Logs'
+    # cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    # if user_id == "*":
+    #     cur.execute('SELECT COUNT(user_id) FROM login_logs')
+    # else:
+    #     cur.execute('SELECT COUNT(user_id) FROM login_logs WHERE user_id = %s'%(user_id))
+    # res=cur.fetchall()
+    return jsonify({'name':'exist'})
+
+
+
+
+
 if __name__ == '__main__':
     app.run()
