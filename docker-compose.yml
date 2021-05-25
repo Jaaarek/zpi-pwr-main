@@ -19,3 +19,9 @@ services:
         restart: always
         ports:
             - 12000:12000
+    stats:
+        build:
+            .\stats-microservice
+        restart: always
+        ports:
+            - 13000:13000
