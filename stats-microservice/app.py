@@ -62,11 +62,24 @@ def logs_count():
     return jsonify({'number_of_logs':res[0]['COUNT(user_id)']})
 
 
-@app.route('video_feed', methods = ['POST'])
+@app.route('/video_feed', methods = ['POST'])
 def logs_count():
     name = request.json['name']
     print(name, flush=True)
     
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT * FROM Users WHERE username=%s",(name,))
+    user = cur.fetchone()
+    cur.close()
+
+    if user == None:
+        cur = mysql.connection.cursor()
+        cur.execute('INSERT INTO Users name VALUES (%s)',(name,))    
+        mysql.connection.commit() 
+        return jsonify({"status": "created"}) 
+    else:
+        return jsonify({"status": "exist"})
+
     # print(user_id, flush = True)
     # app.config['MYSQL_DB'] = '19294_Logs'
     # cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
