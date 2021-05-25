@@ -4,19 +4,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cameras</title>
+    <title>Camera</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyles.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/my.css')}}">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
 
 <body>
-    {% include 'navbar.html' %}
-  <head>
-    <title>Streaming </title>
-  </head>
-  <body>
-    <h1>Streaming </h1>
-    <img src="{{ url_for('video_feed') }}">
-  </body>
+   {% include 'navbar.html' %}
+    <section class="is-white">
+      <div class="hero-body">
+          <div class="container">
+            <h1>Streaming </h1>
+            <img class=".center-img" src="{{ url_for('video_feed') }}">
+          </div>
+      </div>
+    </section>
+ 
 </body>

@@ -1,6 +1,7 @@
+from flask.wrappers import Request
 import cv2
 import time
-from flask import Response, Flask
+from flask import Response, Flask, request, render_template
 import cv2
 import face_recognition
 import os
@@ -99,10 +100,12 @@ def gen(camera):
             else:
                 break
 
+@app.route('/')
+def camera():
+    return render_template('camera.html')
 
-
-
-@app.route('/video_feed', methods=['GET'])
+@app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
     return Response(gen(camera1), mimetype='multipart/x-mixed-replace; boundary=frame')
+

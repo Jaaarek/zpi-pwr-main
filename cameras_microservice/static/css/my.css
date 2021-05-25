@@ -1,0 +1,32 @@
+.main {
+    min-width: 480px;
+}
+
+.main_color {
+    color: #2F80ED;
+}
+
+.add_margin_top {
+    margin-top: 48px;
+}
+
+.opacity_80 {
+    opacity: 80%;
+}
+
+.add_margin_bottom_small {
+    margin-bottom: 16px;
+}
+
+.table-header {
+    color: white;
+    background-color: #2F80ED;
+    border-color: #DBDBDB;
+}
+
+.center-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
