@@ -43,12 +43,19 @@ def gen(camera):
     FONT_THICKNESS = 2
     MODEL = "hog"  # HOG ALG
 
-    Encoding = encoding(KNOWN_FACES_DIR)
-    known_faces = Encoding[0]
-    known_names = Encoding[1]
+
 
 
     while True:
+
+        Encoding_knownFaces = encoding(KNOWN_FACES_DIR)
+        known_faces = Encoding_knownFaces[0]
+        known_names = Encoding_knownFaces[1]
+
+        Encoding_unknownFaces = encoding(UNKNOWN_FACES_DIR)
+        unknown_faces = Encoding_unknownFaces[0]
+        unknown_names = Encoding_unknownFaces[1]
+
         video = cv2.VideoCapture(camera)
         video.set(cv2.CAP_PROP_FPS, 5)
     # Read until video is completed
@@ -83,6 +90,12 @@ def gen(camera):
                         markAttendace("elonN")
 
                     else:
+                        results = face_recognition.compare_faces(unknown_faces, face_encoding, TOLARANCE)
+                        if False in results:
+                            img_counter=len(unknown_faces) + 1
+                            img_name = "Unknown_{}.png".format(img_counter)
+                            cv2.imwrite(img_name, img)
+
                         top_left = (face_location[3], face_location[0])
                         bottom_right = (face_location[1], face_location[2])
                         color = [0, 0, 255]
@@ -92,6 +105,9 @@ def gen(camera):
                                     0.5,
                                     (0, 0, 255), FONT_THICKNESS)
                         markAttendace("elon")
+
+
+
 
                 img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
                 frame = cv2.imencode('.jpg', img)[1].tobytes()
