@@ -24,23 +24,29 @@ def markAttendace(name):
             timeString = now.strftime('%H:%M:%S')
             f.writelines(f'\n{name},{dateString},{timeString}')
 
+def encoding(DIR_NAME):
+    known_faces = []
+    known_names = []
+    for filename in os.listdir(f"{DIR_NAME}"):
+        image = face_recognition.load_image_file(f"{DIR_NAME}/{filename}")
+        encoding = face_recognition.face_encodings(image)[0]
+        known_faces.append(encoding)
+        known_names.append(filename)
+    return [known_faces,known_names]
+
 def gen(camera):
     KNOWN_FACES_DIR = "ImagesAttendance"
+    UNKNOWN_FACES_DIR = "UnknownFaces"
     TOLARANCE = 0.5
     FRAME_THICKNESS = 3
     FONT_THICKNESS = 2
     MODEL = "hog"  # HOG ALG
 
-    known_faces = []
-    known_names = []
+    Encoding = encoding(KNOWN_FACES_DIR)
+    known_faces = Encoding[0]
+    known_names = Encoding[1]
 
 
-
-    for filename in os.listdir(f"{KNOWN_FACES_DIR}"):
-        image = face_recognition.load_image_file(f"{KNOWN_FACES_DIR}/{filename}")
-        encoding = face_recognition.face_encodings(image)[0]
-        known_faces.append(encoding)
-        known_names.append(filename)
     while True:
         video = cv2.VideoCapture(camera)
         video.set(cv2.CAP_PROP_FPS, 5)
