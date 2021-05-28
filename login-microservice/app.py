@@ -19,7 +19,7 @@ def login():
     password = request.json['password']
     email = request.json['email']
 
-
+    print(username, password, email)
 
     if username:
         cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -38,11 +38,13 @@ def login():
             print(user['credential'], flush=True)
         except:
             return jsonify({"credential": None})
-
-    if user:
-        if password == user['password']:
-            return jsonify({'credential': user['credential'], 'id': user['id'], 'username': user['username']})
-
+    try:
+        if user:
+            if password == user['password']:
+                return jsonify({'credential': user['credential'], 'id': user['id'], 'username': user['username']})
+    except: 
+        return jsonify({"credential": None})
+        
     if email:
         print(user['credential'], flush=True)
         return jsonify({'credential': user['credential'], 'id': user['id'], 'username': user['username']})
