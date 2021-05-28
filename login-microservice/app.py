@@ -17,13 +17,35 @@ mysql = MySQL(app)
 def login():
     username = request.json['username']
     password = request.json['password']
-    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cur.execute("SELECT * FROM Users WHERE username=%s",(username,))
-    user = cur.fetchone()
-    cur.close()
+    email = request.json['email']
+
+
+
+    if username:
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute("SELECT * FROM Users WHERE username=%s",(username,))
+        user = cur.fetchone()
+        cur.close()
+
+    if email:
+        try:
+            print(username, password, email, flush=True)
+            cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cur.execute("SELECT * FROM Users WHERE username=\'%s\'"%(email,))
+            #cur.execute("SELECT * FROM Users WHERE username=\'adam.fabijan@gmail.com\'")
+            user = cur.fetchone()
+            cur.close()
+            print(user['credential'], flush=True)
+        except:
+            return jsonify({"credential": None})
+
     if user:
         if password == user['password']:
             return jsonify({'credential': user['credential'], 'id': user['id'], 'username': user['username']})
+
+    if email:
+        print(user['credential'], flush=True)
+        return jsonify({'credential': user['credential'], 'id': user['id'], 'username': user['username']})
 
     return jsonify({"credential": None})
 
