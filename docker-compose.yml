@@ -3,25 +3,25 @@ version: '3.1'
 services:
     main:
         build:
-            ./main
+            .\main
         restart: always
         ports:
             - 10000:10000
     login:
         build:
-            ./login-microservice
+            .\login-microservice
         restart: always
         ports:
             - 11000:11000
     user:
         build:
-            ./user-microservice
+            .\user-microservice
         restart: always
         ports:
             - 12000:12000
     stats:
         build:
-            ./stats-microservice
+            .\stats-microservice
         restart: always
         ports:
             - 13000:13000
