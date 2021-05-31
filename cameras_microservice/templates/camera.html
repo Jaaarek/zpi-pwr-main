@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Camera</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyles.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/my.css')}}">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <section class="container section" id="nawigacja_kamery">
+        <div class="columns is-multiline is-centered">
+            <div class="column is-one-third">
+                <div class="card">
+                    <a class="button is-light is-fullwidth" href="http://localhost:16000/video_feed1">
+                        Pokaz nieznane twarze
+                    </a>
+                </div>
+            </div>
+
+            <div class="column is-one-third">
+                <div class="card">
+                    <a class="button is-light is-fullwidth" href="http://localhost:16000">
+                        Pokaz kamery
+                    </a>
+                </div>
+            </div>
+
+            <div class="column is-one-third">
+                <div class="card">
+                    <a class="button is-info is-fullwidth" href="#add_user_with_photo">
+                        Dodawanie nieznanych uzytkownikow
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="container section" id="kamery">
+        <div class="columns is-multiline">
+            <div class="column is-one-quarter-desktop is-half-tablet">
+                <div class="card p-4">
+                    <img src="{{ url_for('video_feed')}}">
+                    <h6 class="margin_top title is-6">kamera nr 1</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container section" id="nieznani_uzytkownicy">
+        <div class="columns is-multiline add_margin_top">
+            {% for image_name in image_names %}
+            <div class="column is-one-quarter-desktop is-half-tablet">
+                <div class="card p-4">
+                    <div class="card-image">
+
+                        <figure class="image is-5by4">
+                            <img src=" {{url_for('send_image', filename=image_name)}}">
+                        </figure>
+
+                        <span class="title is-6 margin_top">
+                            {{image_name}}
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="container section" id="add_user_with_photo">
+        <div class="box main is-half is-centered">
+            <form method="POST">
+                <div class="field">
+                    <label class="label">Wpisz nazwe nieznanego uzytkownika</label>
+                    <p class="control has-icons-left">
+                        <input class="input" type="text" name="unknown_user" placeholder="Unknown user">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-question-circle"></i>
+                        </span>
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label class="label">Podaj nazwe użytkownika</label>
+                    <div class="control has-icons-left">
+                        <input class="input" type="text" name="username_add" placeholder="Username">
+                        <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Podaj hasło</label>
+                    <p class="control has-icons-left">
+                        <input class="input" type="text" name="password_add" placeholder="Password">
+                        <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+                    </p>
+                </div>
+
+                <div class="field ">
+                    <label class="label">Powtórz hasło</label>
+                    <p class="control has-icons-left">
+                        <input class="input" type="text" name="password_add2" placeholder="Password">
+                        <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+                    </p>
+                </div>
+
+                <div class="field">
+                    <p class="control">
+                        <button type="submit" class="button is-info is-fullwidth">
+                Utwórz konto
+              </button>
+                    </p>
+                </div>
+
+            </form>
+        </div>
+
+    </section>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <body>
