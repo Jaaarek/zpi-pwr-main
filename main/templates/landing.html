@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Landing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyles.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/my.css')}}">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<body>
+
+    <div class="hero-head">
+        <div class="box">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="container">
+                    <div class="navbar-brand">
+                        <span class="navbar-item">
+                            <span class="icon">
+                                <a href="/menu" class="button is-info is-light">
+                                    <i class="fas fa-shower fa-2x"></i>
+                                </a>
+                            </span>
+                        </span>
+
+                        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                        </a>
+
+                    </div>
+
+                    <div id="navbarBasicExample" class="navbar-menu">
+                        <div class="navbar-end">
+                            <span class="navbar-item">
+                                <a href="/login" class="button is-info">
+
+                                    <span class="icon">
+                                        <i class="fas fa-sign-in-alt"></i>
+                                    </span>
+
+                            <span>Zaloguj się</span>
+                            </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <section class="container is-info height_640px">
+        <div class="container is-centered add_margin_top_lp">
+            <div class="container has-text-centered p-6">
+                <div class="container is-half is-centered">
+
+                    <h1 class="title is-1 has-text-centered">
+                        Witamy w aplikacji do zarządzania dostępem
+                    </h1>
+
+                    <p class="title is-6 margin_top has-text-centered">
+                        Aplikacja umozliwia kontrolowania dostepu do pomieszczen, na podstawie rozpoznawania twarzy, dodatkowo jako administrator, mozesz zarzadzac dostepem i rolami
+                    </p>
+
+                    <a href="/login" class="button is-info add_margin_top is-centered">
+                            Zaloguj się
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero add_margin_top is-light">
+        <div class="columns is-vcentered">
+            <div class="column is-half p-6">
+                <h2 class="title is-2">
+                    Spraw, aby twój dom był bezpieczny
+                </h2>
+
+                <h6 class="title is-6">
+                    Zarządzanie bezpieczenstwem w twoim domu nigdy nie bylo takie latwe, dodaj nowych uzytkownikow, aby mieli mozliwosc wejscia do domu, usun jesli juz nie sa domownikami
+                </h6>
+
+            </div>
+
+            <div class="column is-half p-6">
+                <img src="https://images.unsplash.com/photo-1608855732020-8212e4afd397?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" alt="">
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="container add_margin_top">
+        <div class="columns is-vcentered">
+
+            <div class="column is-half p-6">
+                <img src="https://images.unsplash.com/photo-1508921340878-ba53e1f016ec?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" alt="">
+            </div>
+
+            <div class="column is-half p-6">
+                <h2 class="title is-2">
+                    Dodawaj i usuwaj uzytkownikow jednym kliknieciem
+                </h2>
+
+                <h6 class="title is-6">
+                    Dzieki naszej technologi w latwy sposob mozesz zarzadzac i wyswietlac ilosc uzytkownikow a takze statystyki i widok z kamer
+                </h6>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="hero is-info height_640px">
+        <div class="container is-centered add_margin_top_lp">
+            <div class="container has-text-centered p-6">
+                <div class="container is-half is-centered">
+
+                    <h1 class="title is-1 has-text-centered">
+                        Nie czekaj! Zaloguj się za pomocą Google juz dzis
+                    </h1>
+
+                    <p class="title is-6 margin_top has-text-centered">
+                        Aby przejsc do aplikacji kliknij zaloguj
+                    </p>
+
+                    <a href="/login" class="button is-white add_margin_top is-centered">
+                            Zaloguj się
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>

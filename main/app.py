@@ -1,5 +1,5 @@
 import requests
-
+from authlib.integrations.flask_client import OAuth
 from flask import (
     Flask,
     g,
@@ -31,8 +31,11 @@ def before_request():
 
 @app.route('/')
 def main():
-    return redirect(url_for('login'))
+    return redirect(url_for('landing'))
 
+@app.route('/landing')
+def landing():
+    return render_template('landing.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -41,7 +44,8 @@ def login():
         session.pop('credential', None)
         username = request.form['username'].lower()
         password = request.form['password']
-        respose = requests.post("http://login:11000/", json = {'username': username, "password": password})
+        respose = requests.post("http://login:11000/", json = {'username': username, "password": password, 'email': None})
+
         if respose.json()['credential'] != None:
             session['credential'] = respose.json()['credential']
             session['id'] = respose.json()['id']
@@ -151,6 +155,55 @@ def myprofile():
     
 
     return render_template('myprofile.html')
+
+oauth = OAuth(app)
+google = oauth.register(
+    name='google',
+    client_id="1090276623155-avonjnm352om8mskqh6jj4aef276indv.apps.googleusercontent.com",
+    client_secret="ATqNHrVoiez3IaTSEvWt-jr7",
+    access_token_url='https://accounts.google.com/o/oauth2/token',
+    access_token_params=None,
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+    authorize_params=None,
+    api_base_url='https://www.googleapis.com/oauth2/v1/',#do wzięcia z dokumentacji
+    client_kwargs={'scope': 'openid email'},#scope = co chcemy żeby google zwrócił przez toke i get z /authorize
+)
+
+@app.route('/log/google')
+def login_google():
+    google = oauth.create_client('google')
+    redirect_uri = url_for('authorize', _external=True)
+    return google.authorize_redirect(redirect_uri)
+
+
+@app.route('/authorize') #jeżeli identyfikacja się udała leci tu
+def authorize():
+    google = oauth.create_client('google')
+    token = google.authorize_access_token()
+    resp = google.get('userinfo')
+    #resp.raise_for_status()  //nie wiem co to, z nowszej wersji
+    user_info = resp.json()
+    # do something with the token and profile
+    #user = oauth.google.userinfo() psuje logowanie # uses openid endpoint to fetch user info
+    # Here you use the profile/user data that you got and query your database find/register the user
+    # and set ur own data in the session not the profile from google
+    session['email'] = user_info['email']
+    print(session['email'], flush = True)
+    respose = requests.post("http://login:11000/", json = {'username': None, "password": None, 'email': user_info['email']})
+    print(respose.json(), flush=True)
+    if respose.json()['credential'] != None:
+        session['credential'] = respose.json()['credential']
+        session['id'] = respose.json()['id']
+        session['username'] = respose.json()['username']
+        respose = requests.post("http://stats:13000/user_logs_add", json = {'user_id': respose.json()['id'], "date": str(datetime.now()), "ip": request.remote_addr})
+        print(str(datetime.now()), request.remote_addr, flush=True)
+        return redirect(url_for('menu'))
+    flash("Błedny login lub hasło")
+    return render_template('login.html')
+
+
+
+
 
 if __name__ == '__main__':
     app.run()

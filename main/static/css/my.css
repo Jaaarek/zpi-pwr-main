@@ -23,3 +23,11 @@
     background-color: #2F80ED;
     border-color: #DBDBDB;
 }
+
+.height_640px {
+    height: 480px;
+}
+
+.add_margin_top_lp {
+    margin-top: 80px;
+}
