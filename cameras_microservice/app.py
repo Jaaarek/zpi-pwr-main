@@ -1,7 +1,8 @@
 from flask.wrappers import Request
+import requests
 import cv2
 import time
-from flask import Response, Flask, request, render_template
+from flask import Response, Flask, request, render_template, send_from_directory
 import cv2
 import face_recognition
 import os
@@ -25,6 +26,7 @@ def markAttendace(name):
             timeString = now.strftime('%H:%M:%S')
             f.writelines(f'\n{name},{dateString},{timeString}')
 
+
 def encoding(DIR_NAME):
     known_faces = []
     known_names = []
@@ -36,15 +38,12 @@ def encoding(DIR_NAME):
     return [known_faces,known_names]
 
 def gen(camera):
-    KNOWN_FACES_DIR = "ImagesAttendance"
-    UNKNOWN_FACES_DIR = "UnknownFaces"
-    TOLARANCE = 0.5
+    KNOWN_FACES_DIR = "/app/ImagesAttendance"
+    UNKNOWN_FACES_DIR = "/app/UnknownFaces"
+    TOLARANCE = 0.6
     FRAME_THICKNESS = 3
     FONT_THICKNESS = 2
     MODEL = "hog"  # HOG ALG
-
-
-
 
     while True:
 
@@ -75,7 +74,6 @@ def gen(camera):
                     match = None
                     if True in results:
                         match = known_names[results.index(True)]
-                        print(f"Match found: {match}")
 
                         top_left = (face_location[3], face_location[0])
                         bottom_right = (face_location[1], face_location[2])
@@ -87,25 +85,28 @@ def gen(camera):
                         cv2.rectangle(img, top_left, bottom_right, color, cv2.FILLED)
                         cv2.putText(img, match, (face_recognition[3] + 10, face_recognition[2] + 15),
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (200, 200, 200), FONT_THICKNESS)
-                        markAttendace("elonN")
+                        markAttendace(match)
 
-                    else:
-                        results = face_recognition.compare_faces(unknown_faces, face_encoding, TOLARANCE)
-                        if False in results:
-                            img_counter=len(unknown_faces) + 1
-                            img_name = "Unknown_{}.png".format(img_counter)
-                            cv2.imwrite(img_name, img)
+                else:
+                    results = face_recognition.compare_faces(unknown_faces, face_encoding, TOLARANCE)
+                    name = None
+                    if False in results or len(unknown_faces) == 0:
+                        img_counter = len(unknown_faces) + 1
+                        img_name = "Unknown_{}.png".format(img_counter)
+                        cv2.imwrite(f"{UNKNOWN_FACES_DIR}/{img_name}", img)
+                        name = img_name[:-4]
 
-                        top_left = (face_location[3], face_location[0])
-                        bottom_right = (face_location[1], face_location[2])
-                        color = [0, 0, 255]
-                        cv2.rectangle(img, top_left, bottom_right, color, FRAME_THICKNESS)
-                        name = 'UNKNOWN'
-                        cv2.putText(img, name, (face_location[3] + 10, face_location[2] + 15), cv2.FONT_HERSHEY_SIMPLEX,
-                                    0.5,
-                                    (0, 0, 255), FONT_THICKNESS)
-                        markAttendace("elon")
+                    if True in results:
+                        name = unknown_names[results.index(True)][:-4]
 
+                    top_left = (face_location[3], face_location[0])
+                    bottom_right = (face_location[1], face_location[2])
+                    color = [0, 0, 255]
+                    cv2.rectangle(img, top_left, bottom_right, color, FRAME_THICKNESS)
+                    cv2.putText(img, name, (face_location[3] + 10, face_location[2] + 15), cv2.FONT_HERSHEY_SIMPLEX,
+                                0.5,
+                                (0, 0, 255), FONT_THICKNESS)
+                    markAttendace(name)
 
 
 
@@ -124,4 +125,15 @@ def camera():
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
     return Response(gen(camera1), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/upload/<filename>')
+def send_image(filename):
+    return send_from_directory("/app/UnknownFaces", filename)
+
+
+@app.route('/video_feed1')
+def get_gallery():
+    image_names = os.listdir('/app/UnknownFaces')
+    print(image_names, flush=True)
+    return render_template('camera.html', image_names=image_names)
 
