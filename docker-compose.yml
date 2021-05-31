@@ -1,29 +1,26 @@
 version: '3.1'
-
 services:
     main:
         build:
-            .\main
+            ./main
         restart: always
         ports:
             - 10000:10000
     login:
         build:
-            .\login-microservice
+            ./login-microservice
         restart: always
         ports:
             - 11000:11000
     user:
         build:
-            .\user-microservice
+            ./user-microservice
         restart: always
         ports:
             - 12000:12000
     cameras:
         build:
-            .\cameras_microservice
-
-
+            ./cameras_microservice
 
         restart: always
         ports:
