@@ -39,20 +39,22 @@ def encoding(DIR_NAME):
 def gen(camera):
     KNOWN_FACES_DIR = "ImagesAttendance"
     UNKNOWN_FACES_DIR = "UnknownFaces"
-    TOLARANCE = 0.5
+    TOLARANCE = 0.7
     FRAME_THICKNESS = 3
     FONT_THICKNESS = 2
     MODEL = "hog"  # HOG ALG
 
+    Encoding_knownFaces = encoding(KNOWN_FACES_DIR)
+    known_faces = Encoding_knownFaces[0]
+    known_names = Encoding_knownFaces[1]
+
+    Encoding_unknownFaces = encoding(UNKNOWN_FACES_DIR)
+    unknown_faces = Encoding_unknownFaces[0]
+    unknown_names = Encoding_unknownFaces[1]
+
     while True:
 
-        Encoding_knownFaces = encoding(KNOWN_FACES_DIR)
-        known_faces = Encoding_knownFaces[0]
-        known_names = Encoding_knownFaces[1]
 
-        Encoding_unknownFaces = encoding(UNKNOWN_FACES_DIR)
-        unknown_faces = Encoding_unknownFaces[0]
-        unknown_names = Encoding_unknownFaces[1]
 
         video = cv2.VideoCapture(camera)
         video.set(cv2.CAP_PROP_FPS, 5)
@@ -89,11 +91,6 @@ def gen(camera):
                     else:
                         results = face_recognition.compare_faces(unknown_faces, face_encoding, TOLARANCE)
                         name = None
-                        if False in results or len(unknown_faces) == 0:
-                            img_counter = len(unknown_faces) + 1
-                            img_name = "Unknown_{}.png".format(img_counter)
-                            cv2.imwrite(f"{UNKNOWN_FACES_DIR}/{img_name}", img)
-                            name = img_name[:-4]
 
                         if True in results:
                             name = unknown_names[results.index(True)]
@@ -107,7 +104,16 @@ def gen(camera):
                                     (0, 0, 255), FONT_THICKNESS)
                         markAttendace(name)
 
-            cv2.imshow('img', img)
+                        if True not in results:
+                            img_counter = len(unknown_faces) + 1
+                            img_name = "Unknown_{}.png".format(img_counter)
+                            cv2.imwrite(f"{UNKNOWN_FACES_DIR}/{img_name}", img)
+                            enc = face_recognition.face_encodings(img)[0]
+                            unknown_faces.append(enc)
+                            name = img_name[:-4]
+                            unknown_names.append(img_name)
+
+
 
             if cv2.waitKey(30) & 0xFF == ord('q'):  # Wyłącznie kamerki na przycisk q
                 break

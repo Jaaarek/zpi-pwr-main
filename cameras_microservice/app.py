@@ -35,7 +35,7 @@ def encoding(DIR_NAME):
         encoding = face_recognition.face_encodings(image)[0]
         known_faces.append(encoding)
         known_names.append(filename)
-    return [known_faces,known_names]
+    return [known_faces, known_names]
 
 def gen(camera):
     KNOWN_FACES_DIR = "/app/ImagesAttendance"
@@ -45,8 +45,9 @@ def gen(camera):
     FONT_THICKNESS = 2
     MODEL = "hog"  # HOG ALG
 
-    while True:
 
+
+    while True:
         Encoding_knownFaces = encoding(KNOWN_FACES_DIR)
         known_faces = Encoding_knownFaces[0]
         known_names = Encoding_knownFaces[1]
@@ -60,7 +61,6 @@ def gen(camera):
     # Read until video is completed
         while True:
             # Capture frame-by-frame
-
 
             ret, img = video.read()
             if ret == True:
@@ -90,11 +90,15 @@ def gen(camera):
                 else:
                     results = face_recognition.compare_faces(unknown_faces, face_encoding, TOLARANCE)
                     name = None
-                    if False in results or len(unknown_faces) == 0:
+                    if True not in results or len(unknown_faces) == 0:
                         img_counter = len(unknown_faces) + 1
                         img_name = "Unknown_{}.png".format(img_counter)
                         cv2.imwrite(f"{UNKNOWN_FACES_DIR}/{img_name}", img)
+                        enc = face_recognition.face_encodings(img)[0]
+                        unknown_faces.append(enc)
                         name = img_name[:-4]
+                        unknown_names.append(img_name)
+
 
                     if True in results:
                         name = unknown_names[results.index(True)][:-4]
