@@ -116,17 +116,15 @@ def menu_add_user():
 def stats():
     users = requests.get("http://stats:13000/user_stats")
     logs = requests.get("http://stats:13000/user_logs")
-    # TO NIE DZIAŁA
-    # g.number_of_logs = logs.json()['number_of_logs']
-    # g.number_of_users = users.json()['number_of_users']
+    g.number_of_logs = logs.json()['number_of_logs']
+    g.number_of_users = users.json()['number_of_users']
     return render_template('stats.html')
 
 
 @app.route('/myprofile', methods=['GET', 'POST'])
 def myprofile():
     response = requests.post("http://stats:13000/logs_count", json = {"user_id": g.id})
-    # TO TEŻ NIE DZIAŁA
-    # g.personal_number_of_logs = response.json()['number_of_logs']
+    g.personal_number_of_logs = response.json()['number_of_logs']
 
     if request.method == 'POST':
         new_username = request.form['new_username']

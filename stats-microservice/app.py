@@ -63,7 +63,7 @@ def logs_count():
 
 
 @app.route('/video_feed', methods = ['POST'])
-def logs_count():
+def video_feed():
     name = request.json['name']
     print(name, flush=True)
     

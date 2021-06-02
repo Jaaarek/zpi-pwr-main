@@ -2,7 +2,7 @@ from flask.wrappers import Request
 import requests
 import cv2
 import time
-from flask import Response, Flask, request, render_template, send_from_directory
+from flask import Response, Flask, request, render_template, send_from_directory, json, jsonify, flash
 import cv2
 import face_recognition
 import os
@@ -135,9 +135,31 @@ def send_image(filename):
     return send_from_directory("/app/UnknownFaces", filename)
 
 
-@app.route('/video_feed1')
+@app.route('/video_feed1', methods =['GET', 'POST'])
 def get_gallery():
     image_names = os.listdir('/app/UnknownFaces')
     print(image_names, flush=True)
+
+    if request.method == 'POST':
+        username = request.form['username_add'].lower()
+        password = request.form['password_add']
+        password2 = request.form['password_add2']
+        credential = 'user'
+        if credential == 'Użytkownik':
+            credential = 'user'
+        elif credential == 'Administrator':
+            credential = 'admin'
+        elif credential == 'Operator':
+            credential = 'operator'
+
+        if password != password2:
+            flash("Hasła nie są jednakowe")
+        else:
+            response = requests.post("http://user:12000/new_user", json = {"username": username, "password": password, "credential": credential})
+            # if response.json()['status'] == "exist":
+            #     flash("Taki użytkownik już istnieje")
+            # if response.json()['status'] == "created":
+            #     flash("Pomyślnie utworzono użytkownika")
+
     return render_template('camera.html', image_names=image_names)
 
