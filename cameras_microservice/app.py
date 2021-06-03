@@ -7,6 +7,7 @@ import cv2
 import face_recognition
 import os
 import datetime as dt
+import shutil
 
 
 app = Flask(__name__)
@@ -141,6 +142,8 @@ def get_gallery():
     print(image_names, flush=True)
 
     if request.method == 'POST':
+        unknown_user = request.form['unknown_user']
+        print(unknown_user, flush=True)
         username = request.form['username_add'].lower()
         password = request.form['password_add']
         password2 = request.form['password_add2']
@@ -160,6 +163,9 @@ def get_gallery():
             #     flash("Taki użytkownik już istnieje")
             # if response.json()['status'] == "created":
             #     flash("Pomyślnie utworzono użytkownika")
+            os.rename(f"/app/UnknownFaces/{unknown_user}", f"/app/UnknownFaces/{username}" )
+            shutil.move(f"/app/UnknownFaces/{username}", f"/app/ImagesAttendance{username}" )
+
 
     return render_template('camera.html', image_names=image_names)
 
