@@ -13,7 +13,7 @@
 <body>
     {% include 'navbar.html' %}
 
-    <section class="container section" id="nawigacja_kamery">
+    <!-- <section class="container section" id="nawigacja_kamery">
         <div class="columns is-multiline is-centered">
             <div class="column is-one-third">
                 <div class="card">
@@ -40,7 +40,7 @@
             </div>
 
         </div>
-    </section>
+    </section> -->
 
     <section class="container section" id="kamery">
         <div class="columns is-multiline">
@@ -48,6 +48,27 @@
                 <div class="card p-4">
                     <img src="{{ url_for('video_feed')}}">
                     <h6 class="margin_top title is-6">kamera nr 1</h6>
+                </div>
+            </div>
+
+            <div class="column is-one-quarter-desktop is-half-tablet">
+                <div class="card p-4">
+                    <img src="{{ url_for('video_feed')}}">
+                    <h6 class="margin_top title is-6">kamera nr 2</h6>
+                </div>
+            </div>
+
+            <div class="column is-one-quarter-desktop is-half-tablet">
+                <div class="card p-4">
+                    <img src="{{ url_for('video_feed')}}">
+                    <h6 class="margin_top title is-6">kamera nr 3</h6>
+                </div>
+            </div>
+
+            <div class="column is-one-quarter-desktop is-half-tablet">
+                <div class="card p-4">
+                    <img src="{{ url_for('video_feed')}}">
+                    <h6 class="margin_top title is-6">kamera nr 4</h6>
                 </div>
             </div>
         </div>
