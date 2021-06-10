@@ -74,7 +74,9 @@
         </div>
     </section>
 
+
     <section class="container section" id="nieznani_uzytkownicy">
+        <h2 class="title is-2">Nieznani uytkownicy</h2>
         <div class="columns is-multiline add_margin_top">
             {% for image_name in image_names %}
             <div class="column is-one-quarter-desktop is-half-tablet">
@@ -87,6 +89,30 @@
 
                         <span class="title is-6 margin_top">
                             {{image_name}}
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+
+    <section class="container section" id="nieznani_uzytkownicy">
+        <h2 class="title is-2">Znani uytkownicy</h2>
+        <div class="columns is-multiline add_margin_top">
+            {% for x in image_names_known %}
+            <div class="column is-one-quarter-desktop is-half-tablet">
+                <div class="card p-4">
+                    <div class="card-image">
+
+                        <figure class="image is-5by4">
+                            <img src=" {{url_for('send_known_image', filename=x)}}">
+                        </figure>
+
+                        <span class="title is-6 margin_top">
+                            {{x}}
                         </span>
 
                     </div>
