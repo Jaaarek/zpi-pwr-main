@@ -55,7 +55,7 @@ def user_change_name():
     username = request.json['new_username']
     id = request.json['id']
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cur.execute("SELECT * FROM Users WHERE username=%s"%(username.lower(),))
+    cur.execute("SELECT * FROM Users WHERE username=%s",(username.lower(),))
     user = cur.fetchone()
     if user == None:
         cur.execute("UPDATE Users SET username = \'%s\' WHERE id = %s"%(username, id))

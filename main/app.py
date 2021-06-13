@@ -130,7 +130,7 @@ def myprofile():
         new_username = request.form['new_username']
         new_password = request.form['new_password']
         new_password2 = request.form['new_password_2']
-        if new_username != '':
+        if new_username:
             response = requests.post("http://user:12000/user_change_name", json = {'new_username': new_username, 'id': g.id})
             if response.json()['status'] == 'changed':
                 session['username'] = new_username
