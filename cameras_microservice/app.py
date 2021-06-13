@@ -135,10 +135,14 @@ def video_feed():
 def send_image(filename):
     return send_from_directory("/app/UnknownFaces", filename)
 
+@app.route('/upload2/<filename>')
+def send_known_image(filename):
+    return send_from_directory("/app/ImagesAttendance", filename)
 
 @app.route('/video_feed1', methods =['GET', 'POST'])
 def get_gallery():
     image_names = os.listdir('/app/UnknownFaces')
+    image_names_known = os.listdir('/app/ImagesAttendance')
     print(image_names, flush=True)
 
     if request.method == 'POST':
@@ -167,5 +171,5 @@ def get_gallery():
             shutil.move(f"/app/UnknownFaces/{username}", f"/app/ImagesAttendance{username}" )
 
 
-    return render_template('camera.html', image_names=image_names)
+    return render_template('camera.html', image_names=image_names, image_names_known=image_names_known)
 
